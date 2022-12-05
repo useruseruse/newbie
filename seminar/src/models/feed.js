@@ -1,21 +1,36 @@
 const mongoose = require("mongoose");
 
-const OSchemaDefinition = {
-    title: String,
-    content: {
-        type: String,
-        default: "Input Content...",
-    },
-    itemViewCnt: {
-        type: Number,
-        default: 0,
-    }
+const roomSchemaDefinition = {
+    itemName: String,
+    room: String,
 };
-const OSchemaOptions = { timestamps: true };
 
-const schema = new mongoose.Schema(OSchemaDefinition, OSchemaOptions);
+const bookingSchemaDefinition = {
+    room:{
+    
+    },
+    startDate: {
+        type: Date,
+        min: Date.now,
+    },
 
-const FeedModel = mongoose.model("feed", schema);
+    reserved:{
+        type: String
+    }
+    /*endDate: {
+        type: Date,
+        min: Date.now,
+    }*/
+}
 
-module.exports = FeedModel;
+const SchemaOptions = { timestamps: true };
+const roomSchema = new mongoose.Schema(roomSchemaDefinition);
+const bookingSchema =  new mongoose.Schema(bookingSchemaDefinition);
 
+
+const RoomModel = mongoose.model("room", roomSchema);
+const BookingModel = mongoose.model("booking", bookingSchema);
+//
+
+exports.RoomModel = RoomModel;
+exports.BookingModel = BookingModel;
