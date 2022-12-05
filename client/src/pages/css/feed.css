@@ -1,3 +1,50 @@
+.feed-banner {
+    font-family: "Nanum Gothic", sans-serif;
+    font-size: 40px;
+    font-weight: 600;
+    padding: 20px 0;
+    background-color: rgb(235, 160, 042);
+    color: antiquewhite;
+}
+.main{
+    display: flex;
+    flex-direction: row;
+}
+
+.login-box{
+    position: relative;
+    left: 20px;
+    background:white;
+    padding: 24px;
+    border-radius: 0 16px 16px 0;
+}
+
+.account{
+    margin: 20px auto;
+    border: solid 1px rgba(0,0,0,0.3);
+    border-radius: 15px;
+    padding: 10px 10px 20px 10px;
+    width: calc(100% - 50px);
+    max-width: 800px;
+}
+
+
+.board{
+    flex:3;
+    background-color: white;
+    padding: 60px;
+    border-radius: 0 16px 16px 0;
+}
+
+
+.aside{
+    flex:1;
+    background:white;
+    padding: 24px;
+    border-radius: 0 16px 16px 0;
+}
+
+
 .feed-list {
     padding: 25px 10px;
     width: calc(100% - 20px);
@@ -13,11 +60,6 @@
     position: relative;
 }
 
-.feed-item-add {
-    border: dotted 1px black;
-    border-radius: 15px;
-    padding: 20px 10px 0 10px;
-}
 
 .post-add-button {
     margin-top: 20px;
@@ -41,4 +83,12 @@
 .delete-item:hover {
     font-weight: bold;
     cursor: pointer;
+}
+.reserved-table {
+    background-color: beige;
+    padding: 25px 10px;
+
+    width: calc(100% - 20px);
+    max-width: 800px;
+    margin: auto;
 }

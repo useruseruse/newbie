@@ -5,7 +5,6 @@ import { useInterval } from "../tools/interval";
 import "./css/home.css";
 import { SAPIBase } from "../tools/api";
 
-
 const HomePage = (props: {}) => {
   const navigate = useNavigate();
   const [ BServerConnected, setBServerConnected ] = React.useState<boolean>(false);
@@ -25,9 +24,6 @@ const HomePage = (props: {}) => {
   return (
     <div className={"home"}>
       <div className={"home-banner"}>
-        <div className={"sparcs-logo-wrapper"}>
-          <span className={"sparcs-logo"}>SPARCS</span> Backend Seminar
-        </div>
       </div>
       <div className={"link-wrapper"}>
         <div className={"link-options"}>
@@ -49,10 +45,7 @@ const HomePage = (props: {}) => {
           </div>
         </div>
       </div>
-      <div className={"server-status"}>
-        <span className={"status-icon " + ( BServerConnected ? "status-connected" : "status-disconnected" )}>•</span>
-        &nbsp;&nbsp;{ BServerConnected ? "Connected to API Server 🥳" : "Not Connected to API Server 😭" }
-      </div>
+
     </div>
   )
 };

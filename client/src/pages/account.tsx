@@ -3,57 +3,55 @@ import Header from "../components/header";
 import axios from "axios";
 import {SAPIBase} from "../tools/api";
 import "./css/account.css";
+import { useNavigate }  from "react-router-dom";
+import { useLocation }  from "react-router-dom";
+import { stat } from "fs";
+import Table from "react-bootstrap/Table";
+import Button from "react-bootstrap/Button";
+
+
 
 const AccountPage = () => {
   const [ SAPIKEY, setSAPIKEY ] = React.useState<string>("");
   const [ NBalance, setNBalance ] = React.useState<number | "Not Authorized">("Not Authorized");
   const [ NTransaction, setNTransaction ] = React.useState<number | ''>(0);
+  const navigate = useNavigate();
+  const location = useLocation();
+  interface IAPIResponse  { itemName: string, room: string, startDate: string, userName: string }
 
-  const getAccountInformation = () => {
-    const asyncFun = async() => {
-      interface IAPIResponse { balance: number };
-      const { data } = await axios.post<IAPIResponse>(SAPIBase + '/account/getInfo', { credential: SAPIKEY });
-      setNBalance(data.balance);
-    }
-    asyncFun().catch((e) => window.alert(`AN ERROR OCCURED: ${e}`));
-  }
 
-  const performTransaction = ( amount: number | '' ) => {
-    const asyncFun = async() => {
-      if (amount === '') return;
-      interface IAPIResponse { success: boolean, balance: number, msg: string };
-      const { data } = await axios.post<IAPIResponse>(SAPIBase + '/account/transaction', { credential: SAPIKEY, amount: amount });
-      setNTransaction(0);
-      if (!data.success) {
-        window.alert('Transaction Failed:' + data.msg);
-        return;
-      }
-      window.alert(`Transaction Success! ₩${ NBalance } -> ₩${ data.balance }\nThank you for using SPARCS Bank`);
-      setNTransaction(0);
-      setNBalance(data.balance);
-    }
-    asyncFun().catch((e) => window.alert(`AN ERROR OCCURED: ${e}`));
-  }
+  const state = location.state as {userName: string, data:IAPIResponse[]};
+  const userName = state.userName;
+  const booking = state.data;
+ 
+
 
   return (
     <div className={"account"}>
-      <Header/>
-      <h2>Account</h2>
       <div className={"account-token-input"}>
-        Enter API Key: <input type={"text"} value={SAPIKEY} onChange={e => setSAPIKEY(e.target.value)}/>
-        <button onClick={e => getAccountInformation()}>GET</button>
+        <h2>
+          {userName}'s page
+        </h2>
+      <Button variant="secondary" onClick={() => {navigate("/")}}>Back</Button>
       </div>
       <div className={"account-bank"}>
-        <h3>The National Bank of SPARCS API</h3>
-        <div className={"balance"}>
-          <p className={"balance-title"}>Current Balance</p>
-          <p className={"balance-value " + (typeof(NBalance) === "number" ? (NBalance >= 0 ? "balance-positive" : "balance-negative") : "")}>₩ { NBalance }</p>
-        </div>
-        <div className={"transaction"}>
-          ₩ <input type={"number"} value={NTransaction} min={0} onChange={e => setNTransaction(e.target.value === '' ? '' : parseInt(e.target.value))}/>
-          <button onClick={e => performTransaction(NTransaction)}>DEPOSIT</button>
-          <button onClick={e => performTransaction(NTransaction === '' ? '' : NTransaction * -1)}>WITHDRAW</button>
-        </div>
+              <Table striped>
+                <th>itemName</th>
+                <th>room</th>
+                <th>startDate</th>
+                <tbody>
+                    {booking.map( b => {
+                      if(b.userName == userName){
+                      return(
+                          <tr>
+                          <td>{b.room}</td>
+                          <td>{b.userName}</td>
+                          <td>{b.startDate}</td>
+                          <td><Button>Delete</Button></td>
+                          </tr>
+                    )};})}
+                </tbody>
+              </Table>
       </div>
     </div>
   );

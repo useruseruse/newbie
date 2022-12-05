@@ -1,13 +1,12 @@
 const mongoose = require("mongoose");
 
-const roomSchemaDefinition = {
-    itemName: String,
-    room: String,
-};
 
 const bookingSchemaDefinition = {
+    itemName:{
+        type:String
+    },
     room:{
-    
+        type: String
     },
     startDate: {
         type: Date,
@@ -15,6 +14,9 @@ const bookingSchemaDefinition = {
     },
 
     reserved:{
+        type: String
+    },
+    userName:{
         type: String
     }
     /*endDate: {
@@ -24,13 +26,10 @@ const bookingSchemaDefinition = {
 }
 
 const SchemaOptions = { timestamps: true };
-const roomSchema = new mongoose.Schema(roomSchemaDefinition);
 const bookingSchema =  new mongoose.Schema(bookingSchemaDefinition);
 
 
-const RoomModel = mongoose.model("room", roomSchema);
 const BookingModel = mongoose.model("booking", bookingSchema);
 //
 
-exports.RoomModel = RoomModel;
 exports.BookingModel = BookingModel;
