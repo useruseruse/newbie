@@ -1,3 +1,3 @@
-const SAPIBase = "http://localhost:8080";
+const SAPIBase = "http://ssal.sparcs.org:15029";
 
 export { SAPIBase };
